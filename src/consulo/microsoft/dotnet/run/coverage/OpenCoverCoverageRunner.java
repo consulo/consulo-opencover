@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.microsoft.dotnet.run.coverage;
+package consulo.microsoft.dotnet.run.coverage;
 
 import gnu.trove.TIntObjectHashMap;
 
@@ -29,9 +29,9 @@ import javax.xml.bind.Unmarshaller;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import consulo.dotnet.module.extension.DotNetModuleExtension;
-import org.mustbe.consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
-import org.mustbe.consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
-import org.mustbe.consulo.dotnet.run.coverage.DotNetCoverageRunner;
+import consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
+import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
+import consulo.dotnet.run.coverage.DotNetCoverageRunner;
 import org.mustbe.consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import com.intellij.coverage.CoverageSuite;
 import com.intellij.execution.configurations.GeneralCommandLine;
