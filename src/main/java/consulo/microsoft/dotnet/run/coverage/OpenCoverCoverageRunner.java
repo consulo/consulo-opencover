@@ -16,24 +16,10 @@
 
 package consulo.microsoft.dotnet.run.coverage;
 
-import gnu.trove.TIntObjectHashMap;
-
-import java.io.File;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-
 import com.intellij.coverage.CoverageSuite;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.configurations.coverage.CoverageEnabledConfiguration;
-import com.intellij.ide.plugins.IdeaPluginDescriptor;
 import com.intellij.ide.plugins.PluginManager;
-import com.intellij.ide.plugins.cl.PluginClassLoader;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.rt.coverage.data.ClassData;
 import com.intellij.rt.coverage.data.LineCoverage;
@@ -46,6 +32,16 @@ import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
 import consulo.dotnet.run.coverage.DotNetCoverageRunner;
 import consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import consulo.util.NotNullPairFunction;
+import gnu.trove.TIntObjectHashMap;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * @author VISTALL
@@ -56,10 +52,7 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 	@Nonnull
 	public static File getOpenCoverConsoleExecutable()
 	{
-		PluginClassLoader classLoader = (PluginClassLoader) OpenCoverCoverageRunner.class.getClassLoader();
-		IdeaPluginDescriptor plugin = PluginManager.getPlugin(classLoader.getPluginId());
-		assert plugin != null;
-		return new File(new File(plugin.getPath(), "OpenCover"), "OpenCover.Console.exe");
+		return new File(new File(PluginManager.getPluginPath(OpenCoverCoverageRunner.class), "OpenCover"), "OpenCover.Console.exe");
 	}
 
 	@Override
