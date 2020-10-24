@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<idea-plugin>
+<consulo-plugin>
 	<id>consulo.opencover</id>
 	<name>OpenCover</name>
 	<category>Coverage</category>
@@ -24,4 +24,4 @@
 	<extensions defaultExtensionNs="com.intellij">
 		<coverageRunner implementation="consulo.microsoft.dotnet.run.coverage.OpenCoverCoverageRunner" />
 	</extensions>
-</idea-plugin>
+</consulo-plugin>

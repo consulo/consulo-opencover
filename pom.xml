@@ -72,6 +72,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>consulo.dotnet-dotnet.execution.impl</artifactId>
 			<version>${project.version}</version>
