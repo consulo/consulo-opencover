@@ -32,7 +32,8 @@ import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
 import consulo.dotnet.run.coverage.DotNetCoverageRunner;
 import consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
 import consulo.util.NotNullPairFunction;
-import gnu.trove.TIntObjectHashMap;
+import consulo.util.collection.primitive.ints.IntMaps;
+import consulo.util.collection.primitive.ints.IntObjectMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -84,7 +85,7 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 						{
 							continue;
 						}
-						TIntObjectHashMap<String> filePaths = new TIntObjectHashMap<String>();
+						IntObjectMap<String> filePaths = IntMaps.newIntObjectHashMap();
 						CoverageSession.File[] files = module.Files == null ? null : module.Files.Files;
 						if(files != null)
 						{
