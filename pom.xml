@@ -83,8 +83,8 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>consulo.dotnet.microsoft-dotnet-impl</artifactId>
+		<groupId>${project.groupId}</groupId>
+			<artifactId>consulo.dotnet.microsoft</artifactId>
 			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
