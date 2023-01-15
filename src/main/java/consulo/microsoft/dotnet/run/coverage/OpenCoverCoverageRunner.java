@@ -16,38 +16,40 @@
 
 package consulo.microsoft.dotnet.run.coverage;
 
-import com.intellij.coverage.CoverageSuite;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.configurations.coverage.CoverageEnabledConfiguration;
-import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.rt.coverage.data.ClassData;
 import com.intellij.rt.coverage.data.LineCoverage;
 import com.intellij.rt.coverage.data.LineData;
 import com.intellij.rt.coverage.data.ProjectData;
-import com.intellij.util.execution.ParametersListUtil;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.container.plugin.PluginManager;
 import consulo.dotnet.module.extension.DotNetRunModuleExtension;
 import consulo.dotnet.run.coverage.DotNetConfigurationWithCoverage;
-import consulo.dotnet.run.coverage.DotNetCoverageEnabledConfiguration;
-import consulo.dotnet.run.coverage.DotNetCoverageRunner;
+import consulo.dotnet.run.impl.coverage.DotNetCoverageEnabledConfiguration;
+import consulo.dotnet.run.impl.coverage.DotNetCoverageRunner;
+import consulo.execution.coverage.CoverageEnabledConfiguration;
+import consulo.execution.coverage.CoverageSuite;
 import consulo.microsoft.dotnet.module.extension.MicrosoftDotNetModuleExtension;
-import consulo.util.NotNullPairFunction;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.cmd.ParametersListUtil;
 import consulo.util.collection.primitive.ints.IntMaps;
 import consulo.util.collection.primitive.ints.IntObjectMap;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import consulo.util.lang.StringUtil;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.function.BiFunction;
 
 /**
  * @author VISTALL
  * @since 10.01.15
  */
+@ExtensionImpl
 public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 {
 	@Nonnull
@@ -195,13 +197,13 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 
 	@Nonnull
 	@Override
-	public NotNullPairFunction<DotNetConfigurationWithCoverage, GeneralCommandLine, GeneralCommandLine> getModifierForCommandLine()
+	public BiFunction<DotNetConfigurationWithCoverage, GeneralCommandLine, GeneralCommandLine> getModifierForCommandLine()
 	{
-		return new NotNullPairFunction<DotNetConfigurationWithCoverage, GeneralCommandLine, GeneralCommandLine>()
+		return new BiFunction<>()
 		{
 			@Nonnull
 			@Override
-			public GeneralCommandLine fun(DotNetConfigurationWithCoverage t, GeneralCommandLine v)
+			public GeneralCommandLine apply(DotNetConfigurationWithCoverage t, GeneralCommandLine v)
 			{
 				CoverageEnabledConfiguration coverageEnabledConfiguration = DotNetCoverageEnabledConfiguration.get(t);
 

@@ -24,8 +24,4 @@
 	<tags>
 		<tag>run.coverage</tag>
 	</tags>
-
-	<extensions defaultExtensionNs="com.intellij">
-		<coverageRunner implementation="consulo.microsoft.dotnet.run.coverage.OpenCoverCoverageRunner" />
-	</extensions>
 </consulo-plugin>
