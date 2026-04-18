@@ -19,7 +19,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>consulo</groupId>
-		<artifactId>arch.ide-api-provided</artifactId>
+		<artifactId>arch.bind.java</artifactId>
 		<version>3-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
@@ -69,6 +69,50 @@
 	</build>
 
 	<dependencies>
+		<!-- platform -->
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-container-api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-execution-coverage-api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-module-api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-module-content-api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-process-api</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-util-collection</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>consulo</groupId>
+			<artifactId>consulo-util-lang</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>

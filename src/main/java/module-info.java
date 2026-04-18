@@ -4,7 +4,13 @@
  */
 module consulo.opencover
 {
-	requires consulo.ide.api;
+	requires consulo.container.api;
+	requires consulo.execution.coverage.api;
+	requires consulo.module.api;
+	requires consulo.module.content.api;
+	requires consulo.process.api;
+	requires consulo.util.collection;
+	requires consulo.util.lang;
 
 	requires consulo.dotnet.api;
 	requires consulo.dotnet.microsoft;
