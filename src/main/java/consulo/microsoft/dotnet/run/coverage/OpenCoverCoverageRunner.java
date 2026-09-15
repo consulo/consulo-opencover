@@ -16,10 +16,12 @@
 
 package consulo.microsoft.dotnet.run.coverage;
 
-import com.intellij.rt.coverage.data.ClassData;
-import com.intellij.rt.coverage.data.LineCoverage;
-import com.intellij.rt.coverage.data.LineData;
-import com.intellij.rt.coverage.data.ProjectData;
+import consulo.execution.coverage.data.CoverageLine;
+import consulo.execution.coverage.data.CoverageLineImpl;
+import consulo.execution.coverage.data.CoverageProjectData;
+import consulo.execution.coverage.data.CoverageProjectDataImpl;
+import consulo.execution.coverage.data.CoverageUnit;
+import consulo.execution.coverage.data.LineStatus;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.container.plugin.PluginManager;
 import consulo.dotnet.module.extension.DotNetRunModuleExtension;
@@ -41,6 +43,9 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
@@ -59,7 +64,7 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 	}
 
 	@Override
-	public ProjectData loadCoverageData(@Nonnull File sessionDataFile, @Nullable CoverageSuite baseCoverageSuite)
+	public CoverageProjectData loadCoverageData(@Nonnull File sessionDataFile, @Nullable CoverageSuite baseCoverageSuite)
 	{
 		try
 		{
@@ -68,7 +73,7 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 
 			CoverageSession unmarshal = (CoverageSession) unmarshaller.unmarshal(sessionDataFile);
 
-			ProjectData projectData = new ProjectData();
+			CoverageProjectData projectData = new CoverageProjectDataImpl();
 			CoverageSession.Modules modules = unmarshal.Modules;
 			if(modules != null)
 			{
@@ -99,7 +104,7 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 
 						for(CoverageSession.Class aClass : classes1)
 						{
-							ClassData classData = projectData.getOrCreateClassData(aClass.FullName);
+							CoverageUnit classData = projectData.getOrCreateUnit(aClass.FullName);
 
 							SortedMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
 							CoverageSession.Method[] methods = aClass.Methods == null ? null : aClass.Methods.Methods;
@@ -132,7 +137,7 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 												String filePath = filePaths.get(fileUId);
 												if(filePath != null)
 												{
-													classData.setSource(filePath);
+													classData.setSourceFile(filePath);
 												}
 											}
 										}
@@ -142,24 +147,24 @@ public class OpenCoverCoverageRunner extends DotNetCoverageRunner
 
 							if(!map.isEmpty())
 							{
-								LineData[] lineDatas = new LineData[map.lastKey() + 1];
-								for(int i = 0; i < lineDatas.length; i++)
+								List<CoverageLine> lineDatas = new ArrayList<CoverageLine>(Collections.nCopies(map.lastKey() + 1, (CoverageLine) null));
+								for(int i = 0; i < lineDatas.size(); i++)
 								{
 									Integer invokeCount = map.get(i);
 									if(invokeCount != null)
 									{
-										LineData lineData = new LineData(i, "");
+										CoverageLineImpl lineData = new CoverageLineImpl(i, "");
 										if(invokeCount != 0)
 										{
-											lineData.setStatus(LineCoverage.FULL);
+											lineData.setStatus(LineStatus.COVERED);
 										}
 										else
 										{
-											lineData.setStatus(LineCoverage.PARTIAL);
+											lineData.setStatus(LineStatus.PARTIALLY_COVERED);
 										}
 
 										lineData.setHits(invokeCount);
-										lineDatas[i] = lineData;
+										lineDatas.set(i, lineData);
 									}
 								}
 								classData.setLines(lineDatas);
